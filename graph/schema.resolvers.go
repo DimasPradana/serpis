@@ -47,7 +47,7 @@ func (r *queryResolver) Datlogin(ctx context.Context, nmLogin string) (*model.Da
 	rows, err := kon.Query(qry)
 
 	if err != nil {
-		logrus.Infof("errornya di baris 47: %v\n%v", err.Error(), qry)
+		logrus.Infof("errornya di baris 50: %v\n%v", err.Error(), qry)
 	}
 
 	defer rows.Close()
@@ -90,7 +90,7 @@ func (r *queryResolver) Datlogins(ctx context.Context) ([]*model.DatLogin, error
 	defer kon.Close()
 	rows, err := kon.Query(qry)
 	if err != nil {
-		logrus.Infof("errornya di baris 86: %v\n%v", err.Error(), qry)
+		logrus.Infof("errornya di baris 93: %v\n%v", err.Error(), qry)
 	}
 	defer rows.Close()
 	for rows.Next() {
