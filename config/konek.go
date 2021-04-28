@@ -21,5 +21,5 @@ func KonekOracle(username, pwd, host, port, sn string) (*sql.DB, error) {
 	return db, nil
 }
 
-func KonekMysql(){}
-func KonekPostgre(){}
+func KonekMysql()   {}
+func KonekPostgre() {}

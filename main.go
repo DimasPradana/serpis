@@ -29,10 +29,12 @@ package main
 }}} */
 
 /** {{{ TODO snub on Mon 19 Apr 2021 09:59:00 what to do 😀
-	᚛ pakai env
+	᚛ pakai env ✓
 	᚛ koneksi ke database
-		→ oracle
-		→ mysql
+		• oracle ✓
+		• mysql
+	᚛ all queries ✓
+	᚛ single query → find single by nm_login ✓
 }}}*/
 
 import (

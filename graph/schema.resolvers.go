@@ -23,50 +23,50 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 }
 
 func (r *queryResolver) Datlogin(ctx context.Context, nmLogin string) (*model.DatLogin, error) {
-	panic(fmt.Errorf("not implemented"))
-	/*
-		config.GetEnvfile()
-		pbbuser := os.Getenv("pbbuser")
-		pbbpassword := os.Getenv("pbbpassword")
-		pbbhost := os.Getenv("pbbhost")
-		pbbport := os.Getenv("pbbport")
-		pbbservicename := os.Getenv("pbbservicename")
 
-		// var namalogin, nip, password string
-		var datlogin *model.DatLogin
-		// datlogins := []*model.DatLogin{}
+	config.GetEnvfile()
+	pbbuser := os.Getenv("pbbuser")
+	pbbpassword := os.Getenv("pbbpassword")
+	pbbhost := os.Getenv("pbbhost")
+	pbbport := os.Getenv("pbbport")
+	pbbservicename := os.Getenv("pbbservicename")
 
-		// query
-		qry := fmt.Sprintf("select * from dat_login")
+	var namalogin, nip, password string
+	var datlogin *model.DatLogin
 
-		// build koneksi
-		kon, _ := config.KonekOracle(pbbuser, pbbpassword, pbbhost, pbbport,
-			pbbservicename)
-		defer kon.Close()
-		rows, err := kon.Query(qry)
-		if err != nil {
-			logrus.Infof("errornya di baris 40: %v\n%v", err.Error(), qry)
+	// query
+	qry := fmt.Sprintf("select * from dat_login where NM_LOGIN like '%%%v%%'", nmLogin)
+	logrus.Infof("print query : %v", qry)
+
+	// build koneksi
+	kon, _ := config.KonekOracle(pbbuser, pbbpassword, pbbhost, pbbport,
+		pbbservicename)
+
+	defer kon.Close()
+
+	rows, err := kon.Query(qry)
+
+	if err != nil {
+		logrus.Infof("errornya di baris 47: %v\n%v", err.Error(), qry)
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		if err := rows.Scan(
+			&namalogin,
+			&nip,
+			&password); err != nil {
+			logrus.Infof("NM_LOGIN: %v, NIP: %v, PASSWORD: %v\n", namalogin, nip, password)
 		}
-		defer rows.Close()
-		for rows.Next() {
-			// if err := rows.Scan(&namalogin,
-			// 	&nip,
-			// 	&password); err != nil {
-			// if err := rows.Scan(&datlogins.NmLogin,
-			// 	&datlogins.Nip,
-			// 	&datlogins.Password); err != nil {
-			if err := rows.Scan(
-				&datlogin.NmLogin,
-				&datlogin.Nip,
-				&datlogin.Password,
-			); err != nil {
-				logrus.Infof("NM_LOGIN: %v, NIP: %v, PASSWORD: %v\n", datlogin.NmLogin, datlogin.Nip, datlogin.Password)
-			}
-			// logrus.Infof("halo %v", &model.DatLogin)
+		datlogin = &model.DatLogin{
+			NmLogin:  namalogin,
+			Nip:      nip,
+			Password: password,
 		}
+	}
 
-		return datlogin, nil
-	*/
+	return datlogin, nil
 }
 
 func (r *queryResolver) Datlogins(ctx context.Context) ([]*model.DatLogin, error) {
@@ -90,7 +90,7 @@ func (r *queryResolver) Datlogins(ctx context.Context) ([]*model.DatLogin, error
 	defer kon.Close()
 	rows, err := kon.Query(qry)
 	if err != nil {
-		logrus.Infof("errornya di baris 40: %v\n%v", err.Error(), qry)
+		logrus.Infof("errornya di baris 86: %v\n%v", err.Error(), qry)
 	}
 	defer rows.Close()
 	for rows.Next() {
