@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/DimasPradana/kantor/serpis/config"
 	"github.com/DimasPradana/kantor/serpis/graph/generated"
@@ -35,7 +36,8 @@ func (r *queryResolver) Datlogin(ctx context.Context, nmLogin string) (*model.Da
 	var datlogin *model.DatLogin
 
 	// query
-	qry := fmt.Sprintf("select * from dat_login where NM_LOGIN like '%%%v%%'", nmLogin)
+	// qry := fmt.Sprintf("select * from dat_login where NM_LOGIN like '%%%v%%'", strings.ToUpper(nmLogin))
+	qry := fmt.Sprintf("select * from dat_login where NM_LOGIN = '%v'", strings.ToUpper(nmLogin))
 	logrus.Infof("print query : %v", qry)
 
 	// build koneksi
